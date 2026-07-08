@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# Environment Variables
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# ML Artifacts
+artifacts/
+models/
+*.pkl
+*.joblib
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# Cache
+.cache/
+.pytest_cache/
+.mypy_cache/
