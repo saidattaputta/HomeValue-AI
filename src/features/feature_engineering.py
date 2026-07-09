@@ -8,13 +8,19 @@ def create_interaction_features(df):
     # Create interaction features
     engineered_df['HouseAge'] = engineered_df['YrSold'] - engineered_df['YearBuilt']
     engineered_df['YearsSinceRemodel'] = engineered_df['YrSold'] - engineered_df['YearRemodAdd']
-    engineered_df['GarageAge'] = engineered_df['YrSold'] - engineered_df['GarageYrBlt']
+    
+    engineered_df['GarageAge'] = np.where(
+        engineered_df['GarageYrBlt'] == 0,
+        0,
+        engineered_df['YrSold'] - engineered_df['GarageYrBlt']
+        )
     
     # Total Bathrooms
-    engineered_df['TotalBathrooms'] = (engineered_df['FullBath'] + 
-                                        0.5 * engineered_df['HalfBath'] + 
-                                        engineered_df['BsmtFullBath'] + 
-                                        0.5 * engineered_df['BsmtHalfBath'])
+    engineered_df['RoomBathScore'] = (
+        engineered_df['TotRmsAbvGrd'] +
+        engineered_df['FullBath'] +
+        0.5 * engineered_df['HalfBath']
+        )
     
     # Total Porch Area
     engineered_df['TotalPorchArea'] = (engineered_df['OpenPorchSF'] + 
