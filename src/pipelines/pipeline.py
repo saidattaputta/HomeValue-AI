@@ -1,70 +1,174 @@
 
 import os
-import joblib
 import json
-import pandas as pd
+import joblib
 import numpy as np
+import pandas as pd
+
 from src.features.feature_engineering import create_interaction_features
-from src.data.data_cleaning import handle_rare_categories
+from src.data.data_cleaning import (
+    handle_missing_values,
+    handle_rare_categories
+)
+
 
 class PredictionPipeline:
-    def __init__(self,
-                 preprocessor_path = '/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/preprocessor.pkl',
-                 model_path = '/Users/saidattaputta/Desktop/HomeValue-AI/models/best_model.pkl',
-                 freq_path = '/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/categorical_frequencies.json'):
-        
-        if not os.path.exists(preprocessor_path) or not os.path.exists(model_path) or not os.path.exists(freq_path):
-            raise FileNotFoundError("Missing pipeline assets. Please ensure artifacts and models are generated.")
-        
+    def __init__(
+        self,
+        preprocessor_path="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/preprocessor.pkl",
+        model_path="/Users/saidattaputta/Desktop/HomeValue-AI/models/best_model.pkl",
+        freq_path="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/categorical_frequencies.json"
+    ):
+
+        if not os.path.exists(preprocessor_path):
+            raise FileNotFoundError(f"Preprocessor not found: {preprocessor_path}")
+
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found: {model_path}")
+
+        if not os.path.exists(freq_path):
+            raise FileNotFoundError(f"Category frequency file not found: {freq_path}")
+
         self.preprocessor = joblib.load(preprocessor_path)
         self.model = joblib.load(model_path)
-        with open(freq_path, 'r') as f:
+
+        with open(freq_path, "r") as f:
             self.saved_frequencies = json.load(f)
 
     def validate_input(self, df: pd.DataFrame):
 
         if df.empty:
-            raise ValueError('Input DataFrame is empty.')
-        
-        columns_required = [
-            "YrSold", "YearBuilt", "YearRemodAdd", "GarageYrBlt", 
-            "FullBath", "HalfBath", "BsmtFullBath", "BsmtHalfBath",
-            "OpenPorchSF", "EnclosedPorch", "3SsnPorch", "ScreenPorch",
-            "TotRmsAbvGrd", "OverallQual", "GrLivArea", "GarageCars", "GarageArea"
+            raise ValueError("Input DataFrame is empty.")
+
+        required_columns = [
+            "MSSubClass",
+            "MSZoning",
+            "LotFrontage",
+            "LotArea",
+            "Street",
+            "Alley",
+            "LotShape",
+            "LandContour",
+            "Utilities",
+            "LotConfig",
+            "LandSlope",
+            "Neighborhood",
+            "Condition1",
+            "Condition2",
+            "BldgType",
+            "HouseStyle",
+            "OverallQual",
+            "OverallCond",
+            "YearBuilt",
+            "YearRemodAdd",
+            "RoofStyle",
+            "RoofMatl",
+            "Exterior1st",
+            "Exterior2nd",
+            "MasVnrType",
+            "MasVnrArea",
+            "ExterQual",
+            "ExterCond",
+            "Foundation",
+            "BsmtQual",
+            "BsmtCond",
+            "BsmtExposure",
+            "BsmtFinType1",
+            "BsmtFinSF1",
+            "BsmtFinType2",
+            "BsmtFinSF2",
+            "BsmtUnfSF",
+            "TotalBsmtSF",
+            "Heating",
+            "HeatingQC",
+            "CentralAir",
+            "Electrical",
+            "1stFlrSF",
+            "2ndFlrSF",
+            "LowQualFinSF",
+            "GrLivArea",
+            "BsmtFullBath",
+            "BsmtHalfBath",
+            "FullBath",
+            "HalfBath",
+            "BedroomAbvGr",
+            "KitchenAbvGr",
+            "KitchenQual",
+            "TotRmsAbvGrd",
+            "Functional",
+            "Fireplaces",
+            "FireplaceQu",
+            "GarageType",
+            "GarageYrBlt",
+            "GarageFinish",
+            "GarageCars",
+            "GarageArea",
+            "GarageQual",
+            "GarageCond",
+            "PavedDrive",
+            "WoodDeckSF",
+            "OpenPorchSF",
+            "EnclosedPorch",
+            "3SsnPorch",
+            "ScreenPorch",
+            "PoolArea",
+            "PoolQC",
+            "Fence",
+            "MiscFeature",
+            "MiscVal",
+            "MoSold",
+            "YrSold",
+            "SaleType",
+            "SaleCondition"
         ]
-        for col in columns_required:
-            if col not in df.columns:
-                raise ValueError(f"Missing critical feature required for engineering: {col}")
-            
-    def predict(self, input_data: pd.DataFrame) -> np.ndarray:
+
+        missing = [col for col in required_columns if col not in df.columns]
+
+        if missing:
+            raise ValueError(f"Missing required columns: {missing}")
+
+    def predict(self, input_data: pd.DataFrame):
+
         df = input_data.copy()
+
         self.validate_input(df)
 
-        # 1. Handle Rare Categories
-        cat_cols = list(self.saved_frequencies.keys())
-        df_cleaned, _ = handle_rare_categories(
-            df, 
-            cat_cols=cat_cols, 
-            threshold=0.01, 
-            is_train=False, 
+        num_cols = df.select_dtypes(include=["int64", "float64"]).columns.tolist()
+        cat_cols = df.select_dtypes(include=["object"]).columns.tolist()
+
+        df = handle_missing_values(
+            df,
+            num_cols,
+            cat_cols
+        )
+
+        df, _ = handle_rare_categories(
+            df,
+            cat_cols=cat_cols,
+            threshold=0.01,
+            is_train=False,
             train_frequencies=self.saved_frequencies
         )
 
-        # 2. Feature Engineering
-        df_engineered = create_interaction_features(df_cleaned)
+        df = create_interaction_features(df)
 
-        # 3. Log Transformations (Keep this enabled!)
-        log_columns = ['LotArea', 'Qual_LivingArea'] 
+        log_columns = [
+            "LotArea",
+            "Qual_LivingArea"
+        ]
+
         for col in log_columns:
-            if col in df_engineered.columns:
-                df_engineered[col] = np.log1p(df_engineered[col])
+            if col in df.columns:
+                df[col] = np.log1p(df[col])
 
-        # 4. Preprocessing & Inference
-        X_processed = self.preprocessor.transform(df_engineered)
+        assert list(df.columns) == list(
+            self.preprocessor.feature_names_in_
+        ), "Feature mismatch between inference pipeline and preprocessor."
+
+        X_processed = self.preprocessor.transform(df)
+
         predictions = self.model.predict(X_processed)
-        
-        # 5. Reverse the log target transformation cleanly
-        # If your model output is in the range of ~11.5 to 13.0, this returns actual USD.
-        final_price = np.expm1(predictions)
-        
-        return final_price
+
+        predictions = np.expm1(predictions)
+
+        return predictions.astype(float)

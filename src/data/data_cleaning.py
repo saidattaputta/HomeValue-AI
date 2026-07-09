@@ -1,5 +1,32 @@
 import pandas as pd
 
+
+def handle_missing_values(df, num_cols, cat_cols):
+    """
+    Handle missing values in numerical and categorical columns.
+    """
+
+    cleaned_df = df.copy()
+
+    for col in num_cols:
+        if col in cleaned_df.columns:
+            if cleaned_df[col].isnull().sum() > 0:
+
+                if col in ["GarageYrBlt", "MasVnrArea"]:
+                    cleaned_df[col] = cleaned_df[col].fillna(0)
+
+                else:
+                    cleaned_df[col] = cleaned_df[col].fillna(
+                        cleaned_df[col].median()
+                    )
+
+    for col in cat_cols:
+        if col in cleaned_df.columns:
+            if cleaned_df[col].isnull().sum() > 0:
+                cleaned_df[col] = cleaned_df[col].fillna("None")
+
+    return cleaned_df
+
 def handle_rare_categories(df, cat_cols, threshold=0.01, is_train=True, train_frequencies=None):
     """
     Groups rare categories in categorical columns into a single 'Rare' label 
