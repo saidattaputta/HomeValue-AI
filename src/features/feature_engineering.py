@@ -2,15 +2,6 @@ import numpy as np
 import pandas as pd
 
 def create_interaction_features(df):
-    """
-    Create interaction features for the given DataFrame.
-
-    Parameters:
-    df (pd.DataFrame): Input DataFrame containing the original features.
-
-    Returns:
-    pd.DataFrame: DataFrame with newly created interaction features.
-    """
     
     engineered_df = df.copy()
     
