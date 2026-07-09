@@ -1,76 +1,122 @@
 import os
 import joblib
-import pandas as pd
 import shap
+import pandas as pd
 import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+
+from src.preprocessing.preprocessing import load_preprocessor
 
 
 def generate_shap_plots(
-    model_path="/Users/saidattaputta/Desktop/HomeValue-AI/models/best_model.pkl",
-    preprocessor_path="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/preprocessor.pkl",
-    data_path="/Users/saidattaputta/Desktop/HomeValue-AI/data/processed/train_features.csv",
-    artifact_dir="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts"
+    data_path="data/processed/train_features.csv",
+    preprocessor_path="artifacts/preprocessor.pkl",
+    model_path="models/best_model.pkl",
+    output_dir="artifacts"
 ):
+    """
+    Generate SHAP global and local explanation plots.
+    """
 
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model not found: {model_path}")
-
-    if not os.path.exists(preprocessor_path):
-        raise FileNotFoundError(f"Preprocessor not found: {preprocessor_path}")
-
-    if not os.path.exists(data_path):
-        raise FileNotFoundError(f"Dataset not found: {data_path}")
-
-    os.makedirs(artifact_dir, exist_ok=True)
-
-    model = joblib.load(model_path)
-    preprocessor = joblib.load(preprocessor_path)
+    # --------------------------------------------------
+    # Load Data
+    # --------------------------------------------------
 
     df = pd.read_csv(data_path)
 
-    X = df.drop(columns=["SalePrice", "Id"])
-    y = df["SalePrice"]
-
-    assert list(X.columns) == list(preprocessor.feature_names_in_), (
-        "Feature mismatch between dataset and preprocessor."
+    X = df.drop(
+        columns=["SalePrice", "Id"],
+        errors="ignore"
     )
 
-    X_processed = preprocessor.transform(X)
+    y = df["SalePrice"]
+
+    # --------------------------------------------------
+    # Train/Test Split
+    # --------------------------------------------------
+
+    X_train, X_test, _, _ = train_test_split(
+        X,
+        y,
+        test_size=0.20,
+        random_state=42
+    )
+
+    # --------------------------------------------------
+    # Load Preprocessor
+    # --------------------------------------------------
+
+    preprocessor = load_preprocessor(preprocessor_path)
+
+    X_train_processed = preprocessor.transform(X_train)
+    X_test_processed = preprocessor.transform(X_test)
 
     feature_names = preprocessor.get_feature_names_out()
 
-    X_processed = pd.DataFrame(
-        X_processed,
+    X_train_processed = pd.DataFrame(
+        X_train_processed,
         columns=feature_names
     )
 
-    explainer = shap.LinearExplainer(model, X_processed)
+    X_test_processed = pd.DataFrame(
+        X_test_processed,
+        columns=feature_names
+    )
 
-    shap_values = explainer(X_processed)
+    # --------------------------------------------------
+    # Load Model
+    # --------------------------------------------------
+
+    model = joblib.load(model_path)
+
+    # --------------------------------------------------
+    # SHAP
+    # --------------------------------------------------
+
+    explainer = shap.LinearExplainer(
+        model,
+        X_train_processed
+    )
+
+    shap_values = explainer(
+        X_test_processed
+    )
+
+    os.makedirs(
+        output_dir,
+        exist_ok=True
+    )
+
+    # --------------------------------------------------
+    # Global Summary Plot
+    # --------------------------------------------------
+
+    plt.figure(figsize=(12, 8))
 
     shap.summary_plot(
         shap_values,
-        X_processed,
+        X_test_processed,
         max_display=15,
         show=False
-    )
-
-    plt.title(
-        "Top 15 Features Driving House Price Predictions",
-        fontsize=16,
-        fontweight="bold",
-        pad=20
     )
 
     plt.tight_layout()
 
     plt.savefig(
-        os.path.join(artifact_dir, "shap_global_summary.png"),
+        os.path.join(
+            output_dir,
+            "shap_global_summary.png"
+        ),
         dpi=300,
         bbox_inches="tight"
     )
 
     plt.close()
+
+    # --------------------------------------------------
+    # Local Waterfall Plot
+    # --------------------------------------------------
 
     shap.plots.waterfall(
         shap_values[0],
@@ -78,24 +124,33 @@ def generate_shap_plots(
         show=False
     )
 
-    plt.tight_layout()
-
     plt.savefig(
-        os.path.join(artifact_dir, "shap_local_waterfall.png"),
+        os.path.join(
+            output_dir,
+            "shap_local_waterfall.png"
+        ),
         dpi=300,
         bbox_inches="tight"
     )
 
     plt.close()
 
+    # --------------------------------------------------
+    # Save SHAP Values
+    # --------------------------------------------------
+
     joblib.dump(
         shap_values,
-        os.path.join(artifact_dir, "shap_values.pkl")
+        os.path.join(
+            output_dir,
+            "shap_values.pkl"
+        )
     )
 
-    print("SHAP analysis completed successfully.")
-    print(f"Artifacts saved to: {artifact_dir}")
+    print("\nSHAP analysis completed successfully.")
+    print("Artifacts saved to:", output_dir)
 
 
 if __name__ == "__main__":
+
     generate_shap_plots()

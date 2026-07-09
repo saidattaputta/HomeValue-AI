@@ -1,33 +1,27 @@
-
-import os
 import json
 import joblib
 import numpy as np
 import pandas as pd
 
-from src.features.feature_engineering import create_interaction_features
 from src.data.data_cleaning import (
     handle_missing_values,
     handle_rare_categories
 )
 
+from src.features.feature_engineering import (
+    create_interaction_features,
+    apply_log_transformations
+)
+
 
 class PredictionPipeline:
+
     def __init__(
         self,
-        preprocessor_path="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/preprocessor.pkl",
-        model_path="/Users/saidattaputta/Desktop/HomeValue-AI/models/best_model.pkl",
-        freq_path="/Users/saidattaputta/Desktop/HomeValue-AI/artifacts/categorical_frequencies.json"
+        preprocessor_path="artifacts/preprocessor.pkl",
+        model_path="models/best_model.pkl",
+        freq_path="artifacts/categorical_frequencies.json"
     ):
-
-        if not os.path.exists(preprocessor_path):
-            raise FileNotFoundError(f"Preprocessor not found: {preprocessor_path}")
-
-        if not os.path.exists(model_path):
-            raise FileNotFoundError(f"Model not found: {model_path}")
-
-        if not os.path.exists(freq_path):
-            raise FileNotFoundError(f"Category frequency file not found: {freq_path}")
 
         self.preprocessor = joblib.load(preprocessor_path)
         self.model = joblib.load(model_path)
@@ -35,106 +29,37 @@ class PredictionPipeline:
         with open(freq_path, "r") as f:
             self.saved_frequencies = json.load(f)
 
-    def validate_input(self, df: pd.DataFrame):
+    def predict(self, input_df: pd.DataFrame):
 
-        if df.empty:
-            raise ValueError("Input DataFrame is empty.")
+        df = input_df.copy()
 
-        required_columns = [
-            "MSSubClass",
-            "MSZoning",
-            "LotFrontage",
-            "LotArea",
-            "Street",
-            "Alley",
-            "LotShape",
-            "LandContour",
-            "Utilities",
-            "LotConfig",
-            "LandSlope",
-            "Neighborhood",
-            "Condition1",
-            "Condition2",
-            "BldgType",
-            "HouseStyle",
-            "OverallQual",
-            "OverallCond",
-            "YearBuilt",
-            "YearRemodAdd",
-            "RoofStyle",
-            "RoofMatl",
-            "Exterior1st",
-            "Exterior2nd",
-            "MasVnrType",
-            "MasVnrArea",
-            "ExterQual",
-            "ExterCond",
-            "Foundation",
-            "BsmtQual",
-            "BsmtCond",
-            "BsmtExposure",
-            "BsmtFinType1",
-            "BsmtFinSF1",
-            "BsmtFinType2",
-            "BsmtFinSF2",
-            "BsmtUnfSF",
-            "TotalBsmtSF",
-            "Heating",
-            "HeatingQC",
-            "CentralAir",
-            "Electrical",
-            "1stFlrSF",
-            "2ndFlrSF",
-            "LowQualFinSF",
-            "GrLivArea",
-            "BsmtFullBath",
-            "BsmtHalfBath",
-            "FullBath",
-            "HalfBath",
-            "BedroomAbvGr",
-            "KitchenAbvGr",
-            "KitchenQual",
-            "TotRmsAbvGrd",
-            "Functional",
-            "Fireplaces",
-            "FireplaceQu",
-            "GarageType",
-            "GarageYrBlt",
-            "GarageFinish",
-            "GarageCars",
-            "GarageArea",
-            "GarageQual",
-            "GarageCond",
-            "PavedDrive",
-            "WoodDeckSF",
-            "OpenPorchSF",
-            "EnclosedPorch",
-            "3SsnPorch",
-            "ScreenPorch",
-            "PoolArea",
-            "PoolQC",
-            "Fence",
-            "MiscFeature",
-            "MiscVal",
-            "MoSold",
-            "YrSold",
-            "SaleType",
-            "SaleCondition"
-        ]
+        # -------------------------------------------------
+        # Remove Target
+        # -------------------------------------------------
 
-        missing = [col for col in required_columns if col not in df.columns]
+        if "SalePrice" in df.columns:
+            df = df.drop(columns=["SalePrice"])
 
-        if missing:
-            raise ValueError(f"Missing required columns: {missing}")
+        # -------------------------------------------------
+        # Remove Id
+        # -------------------------------------------------
 
-    def predict(self, input_data: pd.DataFrame):
+        if "Id" in df.columns:
+            df = df.drop(columns=["Id"])
 
-        df = input_data.copy()
+        # -------------------------------------------------
+        # Numerical & Categorical Columns
+        # -------------------------------------------------
 
-        self.validate_input(df)
+        num_cols = df.select_dtypes(include=np.number).columns.tolist()
 
-        num_cols = df.select_dtypes(include=["int64", "float64"]).columns.tolist()
-        cat_cols = df.select_dtypes(include=["object"]).columns.tolist()
+        cat_cols = df.select_dtypes(
+            exclude=np.number
+        ).columns.tolist()
+
+        # -------------------------------------------------
+        # Missing Values
+        # -------------------------------------------------
 
         df = handle_missing_values(
             df,
@@ -142,33 +67,59 @@ class PredictionPipeline:
             cat_cols
         )
 
+        # -------------------------------------------------
+        # Rare Categories
+        # -------------------------------------------------
+
         df, _ = handle_rare_categories(
-            df,
+            df=df,
             cat_cols=cat_cols,
             threshold=0.01,
             is_train=False,
             train_frequencies=self.saved_frequencies
         )
 
+        # -------------------------------------------------
+        # Feature Engineering
+        # -------------------------------------------------
+
         df = create_interaction_features(df)
 
-        log_columns = [
-            "LotArea",
-            "Qual_LivingArea"
-        ]
+        # -------------------------------------------------
+        # Log Transformations
+        # -------------------------------------------------
 
-        for col in log_columns:
-            if col in df.columns:
-                df[col] = np.log1p(df[col])
+        df = apply_log_transformations(
+            df,
+            is_train=False
+        )
 
-        assert list(df.columns) == list(
+        # -------------------------------------------------
+        # Match Training Feature Order
+        # -------------------------------------------------
+
+        expected_columns = list(
             self.preprocessor.feature_names_in_
-        ), "Feature mismatch between inference pipeline and preprocessor."
+        )
 
-        X_processed = self.preprocessor.transform(df)
+        df = df[expected_columns]
 
-        predictions = self.model.predict(X_processed)
+        # -------------------------------------------------
+        # Transform
+        # -------------------------------------------------
 
-        predictions = np.expm1(predictions)
+        X = self.preprocessor.transform(df)
 
-        return predictions.astype(float)
+        # -------------------------------------------------
+        # Predict
+        # -------------------------------------------------
+
+        prediction = self.model.predict(X)
+
+        # -------------------------------------------------
+        # Reverse Log(Target)
+        # -------------------------------------------------
+
+        prediction = np.expm1(prediction)
+
+        return prediction

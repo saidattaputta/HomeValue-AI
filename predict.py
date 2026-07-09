@@ -1,37 +1,33 @@
 import os
 import pandas as pd
+
 from src.pipelines.pipeline import PredictionPipeline
 
-if __name__ == "__main__":
+
+def main():
 
     print("Production Pipeline Initialized")
 
     pipeline = PredictionPipeline()
 
-    raw_data_path = "/Users/saidattaputta/Desktop/HomeValue-AI/data/raw/train.csv"
+    raw_data_path = "data/raw/train.csv"
 
-    if os.path.exists(raw_data_path):
+    if not os.path.exists(raw_data_path):
+        print(f"File not found: {raw_data_path}")
+        return
 
-        full_df = pd.read_csv(raw_data_path, nrows=1)
+    houses = pd.read_csv(raw_data_path).head(10)
 
-        if "SalePrice" in full_df.columns:
-            full_df = full_df.drop(columns=["SalePrice"])
-
-        mock_house = full_df
-
-        print("\nInput Features")
-        print(mock_house.head())
-
+    if "SalePrice" in houses.columns:
+        actual_prices = houses["SalePrice"]
+        houses = houses.drop(columns=["SalePrice"])
     else:
-        print(f"Could not find {raw_data_path}")
-        exit(1)
+        actual_prices = None
 
-    try:
+    print("\nInput Houses")
+    print(houses.head())
 
-        predicted_price = pipeline.predict(mock_house)
-
-        print("\nPrediction pipeline executed successfully.")
-        print(f"Estimated House Price: ${predicted_price[0]:,.2f}")
-
-    except Exception as e:
-        print(f"Prediction failed: {e}")
+    predictions = pipeline.predict(houses)
+    
+if __name__ == "__main__":
+    main()
