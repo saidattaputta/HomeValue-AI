@@ -16,8 +16,10 @@ def main():
         print(f"File not found: {raw_data_path}")
         return
 
+    # Load first 10 houses
     houses = pd.read_csv(raw_data_path).head(10)
 
+    # Save actual prices
     if "SalePrice" in houses.columns:
         actual_prices = houses["SalePrice"]
         houses = houses.drop(columns=["SalePrice"])
@@ -27,7 +29,22 @@ def main():
     print("\nInput Houses")
     print(houses.head())
 
+    # Predict
     predictions = pipeline.predict(houses)
-    
+
+    print("\n========== Predictions ==========\n")
+
+    for i, pred in enumerate(predictions):
+
+        print(f"House {i+1}")
+
+        print(f"Predicted : ${pred:,.2f}")
+
+        if actual_prices is not None:
+            print(f"Actual    : ${actual_prices.iloc[i]:,.2f}")
+
+        print("-" * 40)
+
+
 if __name__ == "__main__":
     main()
