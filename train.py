@@ -91,27 +91,16 @@ def main():
 
     #  SHAP Explainability
 
-    try:
-
-        X_processed = preprocessor.transform(X)
-
-        joblib.dump(
-            X_processed,
-            shap_value_path
+    generate_shap_plots(
+        data_path=train_data,
+        preprocessor_path=preprocessing_path,
+        model_path=model_path,
+        output_dir=artifacts_dir
         )
+    
+    print(" SHAP Plots Plotted")
 
-        generate_shap_plots(
-            model_path=model_path,
-            feature_names=preprocessor.get_feature_names_out(),
-            X_test_processed_path = shap_value_path
-        )
-
-        print("SHAP Plots Generated")
-
-    except Exception as e:
-
-        print(f"SHAP generation skipped: {e}")
-
+    
     print("\n" + "=" * 60)
     print("Training Pipeline Completed Successfully")
     print("=" * 60)
