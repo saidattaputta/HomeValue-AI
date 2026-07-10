@@ -11,3 +11,5 @@ python-multipart==0.0.20
 
 matplotlib==3.10.6
 shap==0.52.0
+
+streamlit==1.51.0
