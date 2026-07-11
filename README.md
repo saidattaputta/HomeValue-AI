@@ -1,21 +1,21 @@
-# 🏠 HomeValue AI
+# HomeValue AI
 
 An end-to-end Machine Learning application for predicting residential house prices using the Ames Housing Dataset.
 
 The project demonstrates the complete lifecycle of a production-ready ML system, including data preprocessing, feature engineering, model training, explainability, REST API development, and an interactive web dashboard.
 
-## 🚀 Features
+## Features
 
-- 🏡 Single House Price Prediction
-- 📂 Batch House Price Prediction
-- 🧠 SHAP Explainability
-- ⚡ FastAPI REST API
-- 🎨 Streamlit Dashboard
-- 📊 Model Insights
-- 🔄 Automated Feature Engineering
-- 📦 Production-ready Preprocessing Pipeline
+- Single House Price Prediction
+- Batch House Price Prediction
+- SHAP Explainability
+- FastAPI REST API
+- Streamlit Dashboard
+- Model Insights
+- Automated Feature Engineering
+- Production-ready Preprocessing Pipeline
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Machine Learning
 - Python
@@ -39,7 +39,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system,
 - Git
 - GitHub
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 HomeValue-AI/
@@ -67,7 +67,7 @@ HomeValue-AI/
 └── README.md
 ```
 
-## 🔄 Machine Learning Workflow
+## Machine Learning Pipeline
 
 ```text
 Raw Dataset
@@ -94,14 +94,14 @@ FastAPI REST API
 Streamlit Dashboard
 ```
 
-## 🤖 Machine Learning Model
+## Machine Learning Model
 
 - Algorithm: Ridge Regression
 - Dataset: Ames Housing
 - Problem Type: Regression
 - Explainability: SHAP
 
-## 📱 Application Pages
+## Application Pages
 
 - Home
 - House Price Prediction
@@ -109,7 +109,7 @@ Streamlit Dashboard
 - Model Insights
 - About
 
-## ⚙ Installation
+## Installation
 
 Clone the repository
 
@@ -124,13 +124,13 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-## 🏋 Train the Model
+## Train the Model
 
 ```bash
 python train.py
 ```
 
-## ⚡ Run FastAPI
+## Run FastAPI
 
 ```bash
 uvicorn api.main:app --reload
@@ -142,13 +142,13 @@ API Documentation
 http://127.0.0.1:8000/docs
 ```
 
-## 🎨 Run Streamlit
+## Run Streamlit
 
 ```bash
 streamlit run app/app.py
 ```
 
-## 📸 Screenshots
+## Screenshots
 
 - Home Page
 - Prediction Page
@@ -156,7 +156,7 @@ streamlit run app/app.py
 - Model Insights
 - API Documentation
 
-## 🚀 Future Improvements
+## Future Improvements
 
 - Docker Deployment
 - Cloud Deployment
@@ -166,7 +166,7 @@ streamlit run app/app.py
 - User Authentication
 - Model Versioning
 
-## 👨‍💻 Author
+## Author
 
 **Sai Datta Putta**
 

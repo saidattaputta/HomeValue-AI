@@ -19,9 +19,7 @@ def generate_shap_plots(
     Generate SHAP global and local explanation plots.
     """
 
-    # --------------------------------------------------
     # Load Data
-    # --------------------------------------------------
 
     df = pd.read_csv(data_path)
 
@@ -32,9 +30,7 @@ def generate_shap_plots(
 
     y = df["SalePrice"]
 
-    # --------------------------------------------------
     # Train/Test Split
-    # --------------------------------------------------
 
     X_train, X_test, _, _ = train_test_split(
         X,
@@ -43,9 +39,7 @@ def generate_shap_plots(
         random_state=42
     )
 
-    # --------------------------------------------------
     # Load Preprocessor
-    # --------------------------------------------------
 
     preprocessor = load_preprocessor(preprocessor_path)
 
@@ -64,15 +58,11 @@ def generate_shap_plots(
         columns=feature_names
     )
 
-    # --------------------------------------------------
     # Load Model
-    # --------------------------------------------------
 
     model = joblib.load(model_path)
 
-    # --------------------------------------------------
     # SHAP
-    # --------------------------------------------------
 
     explainer = shap.LinearExplainer(
         model,
@@ -88,9 +78,7 @@ def generate_shap_plots(
         exist_ok=True
     )
 
-    # --------------------------------------------------
     # Global Summary Plot
-    # --------------------------------------------------
 
     plt.figure(figsize=(12, 8))
 
@@ -114,9 +102,7 @@ def generate_shap_plots(
 
     plt.close()
 
-    # --------------------------------------------------
     # Local Waterfall Plot
-    # --------------------------------------------------
 
     shap.plots.waterfall(
         shap_values[0],
@@ -135,9 +121,7 @@ def generate_shap_plots(
 
     plt.close()
 
-    # --------------------------------------------------
     # Global Bar Plot
-    # --------------------------------------------------
 
     plt.figure(figsize=(12, 8))
 
@@ -160,9 +144,7 @@ def generate_shap_plots(
 
     plt.close()
 
-    # --------------------------------------------------
     # Beeswarm Plot
-    # --------------------------------------------------
 
     plt.figure(figsize=(12, 8))
 
@@ -185,9 +167,7 @@ def generate_shap_plots(
 
     plt.close()
 
-    # --------------------------------------------------
     # Decision Plot
-    # --------------------------------------------------
 
     plt.figure(figsize=(14, 8))
 
@@ -238,9 +218,8 @@ def generate_shap_plots(
         )
 
         plt.close()
-    # --------------------------------------------------
+
     # Dependence Plots
-    # --------------------------------------------------
 
     save_dependence_plot("num__OverallQual")
     save_dependence_plot("num__GrLivArea")
@@ -297,9 +276,7 @@ def generate_shap_plots(
 
     plt.close()
 
-    # --------------------------------------------------
     # Save SHAP Values
-    # --------------------------------------------------
 
     joblib.dump(
         shap_values,
@@ -309,7 +286,7 @@ def generate_shap_plots(
         )
     )
 
-    print("\nSHAP analysis completed successfully.")
+    print("\nSHAP analysis completed.")
     print("Artifacts saved to:", output_dir)
 
 

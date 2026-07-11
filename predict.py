@@ -32,7 +32,7 @@ def main():
     # Predict
     predictions = pipeline.predict(houses)
 
-    print("\n========== Predictions ==========\n")
+    print("\nPredictions\n")
 
     for i, pred in enumerate(predictions):
 
@@ -42,8 +42,6 @@ def main():
 
         if actual_prices is not None:
             print(f"Actual    : ${actual_prices.iloc[i]:,.2f}")
-
-        print("-" * 40)
 
 
 if __name__ == "__main__":

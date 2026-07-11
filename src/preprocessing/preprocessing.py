@@ -42,9 +42,7 @@ def fit_preprocessor(
     target_column="SalePrice",
     id_column="Id"
 ):
-    """
-    Fit the preprocessor on training data.
-    """
+    # Fit the preprocessor on training data.
 
     X = train_df.drop(
         columns=[target_column, id_column],
@@ -73,9 +71,7 @@ def save_preprocessor(
     preprocessor,
     output_path
 ):
-    """
-    Save fitted preprocessor.
-    """
+    # Save fitted preprocessor.
 
     os.makedirs(
         os.path.dirname(output_path),
@@ -93,9 +89,8 @@ def save_preprocessor(
 def load_preprocessor(
     preprocessor_path
 ):
-    """
-    Load fitted preprocessor.
-    """
+    # Load fitted preprocessor.
+    
 
     if not os.path.exists(preprocessor_path):
         raise FileNotFoundError(

@@ -9,10 +9,7 @@ from src.visualization.shap_explainability import generate_shap_plots
 
 from src.utils.category_levels import save_category_levels
 
-
-# ==========================================================
 # Project Paths
-# ==========================================================
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -48,21 +45,14 @@ SHAP_VALUES_PATH = os.path.join(
     "shap_values.pkl"
 )
 
-
-# ==========================================================
-# Main
-# ==========================================================
-
 def main():
 
-    print("=" * 60)
-    print("        HomeValue AI Training Pipeline")
-    print("=" * 60)
+    print("HomeValue AI Training Pipeline")
 
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
     os.makedirs(MODELS_DIR, exist_ok=True)
 
-    print("\nLoading Training Data...")
+    print("\nLoading Training Data")
 
     train = pd.read_csv(TRAIN_DATA)
 
@@ -83,9 +73,7 @@ def main():
     print(f"\nNumerical Features   : {len(num_cols)}")
     print(f"Categorical Features : {len(cat_cols)}")
 
-    # ======================================================
     # Save Category Levels
-    # ======================================================
 
     save_category_levels(
         dataframe=X,
@@ -98,11 +86,9 @@ def main():
 
     print("Category Levels Saved")
 
-    # ======================================================
     # Create Preprocessor
-    # ======================================================
 
-    print("\nCreating Preprocessor...")
+    print("\nCreating Preprocessor")
 
     preprocessor = create_preprocessor(
         num_cols=num_cols,
@@ -118,11 +104,9 @@ def main():
 
     print("Preprocessor Saved")
 
-    # ======================================================
     # Train Model
-    # ======================================================
 
-    print("\nTraining Base Model...")
+    print("\nTraining Base Model")
 
     train_production_model(
         data_path=TRAIN_DATA,
@@ -132,11 +116,9 @@ def main():
 
     print("Base Model Training Completed")
 
-    # ======================================================
     # Hyperparameter Tuning
-    # ======================================================
 
-    print("\nHyperparameter Tuning...")
+    print("\nHyperparameter Tuning")
 
     tune_model(
         data_path=TRAIN_DATA,
@@ -146,11 +128,9 @@ def main():
 
     print("Hyperparameter Tuning Completed")
 
-    # ======================================================
     # SHAP Explainability
-    # ======================================================
 
-    print("\nGenerating SHAP Explainability...")
+    print("\nGenerating SHAP Explainability")
 
     generate_shap_plots(
         data_path=TRAIN_DATA,
@@ -161,22 +141,18 @@ def main():
 
     print("SHAP Plots Generated")
 
-    # ======================================================
     # Summary
-    # ======================================================
-
-    print("\n" + "=" * 60)
-    print("Training Pipeline Completed Successfully")
-    print("=" * 60)
+    
+    print("Training Pipeline Completed")
 
     print("\nGenerated Files")
 
-    print(f"✓ {PREPROCESSOR_PATH}")
-    print(f"✓ {MODEL_PATH}")
-    print(f"✓ {os.path.join(ARTIFACTS_DIR,'category_levels.json')}")
-    print(f"✓ {SHAP_VALUES_PATH}")
-    print("✓ SHAP Summary Plot")
-    print("✓ SHAP Waterfall Plot")
+    print(f"{PREPROCESSOR_PATH}")
+    print(f"{MODEL_PATH}")
+    print(f"{os.path.join(ARTIFACTS_DIR,'category_levels.json')}")
+    print(f"{SHAP_VALUES_PATH}")
+    print("SHAP Summary Plot")
+    print("SHAP Waterfall Plot")
 
 
 if __name__ == "__main__":

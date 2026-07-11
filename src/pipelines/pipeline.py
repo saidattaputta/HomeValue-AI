@@ -35,23 +35,17 @@ class PredictionPipeline:
 
         df = input_df.copy()
 
-        # -------------------------------------------------
         # Remove Target
-        # -------------------------------------------------
 
         if "SalePrice" in df.columns:
             df = df.drop(columns=["SalePrice"])
 
-        # -------------------------------------------------
         # Remove Id
-        # -------------------------------------------------
 
         if "Id" in df.columns:
             df = df.drop(columns=["Id"])
 
-        # -------------------------------------------------
         # Add Missing Optional Features
-        # -------------------------------------------------
 
         for column, value in DEFAULT_VALUES.items():
 
@@ -59,9 +53,7 @@ class PredictionPipeline:
 
                 df[column] = value
 
-        # -------------------------------------------------
         # Numerical & Categorical Columns
-        # -------------------------------------------------
 
         num_cols = df.select_dtypes(
             include=np.number
@@ -71,9 +63,7 @@ class PredictionPipeline:
             exclude=np.number
         ).columns.tolist()
 
-        # -------------------------------------------------
         # Missing Values
-        # -------------------------------------------------
 
         df = handle_missing_values(
             df,
@@ -81,9 +71,7 @@ class PredictionPipeline:
             cat_cols
         )
 
-        # -------------------------------------------------
         # Rare Categories
-        # -------------------------------------------------
 
         df, _ = handle_rare_categories(
             df=df,
@@ -93,24 +81,18 @@ class PredictionPipeline:
             train_frequencies=self.saved_frequencies
         )
 
-        # -------------------------------------------------
         # Feature Engineering
-        # -------------------------------------------------
 
         df = create_interaction_features(df)
 
-        # -------------------------------------------------
         # Log Transformations
-        # -------------------------------------------------
 
         df = apply_log_transformations(
             df,
             is_train=False
         )
 
-        # -------------------------------------------------
         # Match Training Feature Order
-        # -------------------------------------------------
 
         expected_columns = list(
             self.preprocessor.feature_names_in_
@@ -118,22 +100,16 @@ class PredictionPipeline:
 
         df = df[expected_columns]
 
-        # -------------------------------------------------
         # Transform
-        # -------------------------------------------------
 
         X = self.preprocessor.transform(df)
 
-        # -------------------------------------------------
         # Predict
-        # -------------------------------------------------
 
         prediction = self.model.predict(X)
 
-        # -------------------------------------------------
         # Reverse Log(Target)
-        # -------------------------------------------------
-
+    
         prediction = np.expm1(prediction)
 
         return prediction

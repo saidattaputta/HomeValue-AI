@@ -9,9 +9,7 @@ def create_interaction_features(df):
 
     engineered_df = df.copy()
 
-    # --------------------------------------------------
     # Age Features
-    # --------------------------------------------------
 
     engineered_df["HouseAge"] = (
         engineered_df["YrSold"] - engineered_df["YearBuilt"]
@@ -25,12 +23,9 @@ def create_interaction_features(df):
         engineered_df["YrSold"] - engineered_df["GarageYrBlt"]
     )
 
-    # GarageAge can become negative when GarageYrBlt == 0
     engineered_df["GarageAge"] = engineered_df["GarageAge"].clip(lower=0)
 
-    # --------------------------------------------------
     # Bathroom Features
-    # --------------------------------------------------
 
     engineered_df["TotalBathrooms"] = (
         engineered_df["FullBath"]
@@ -39,9 +34,7 @@ def create_interaction_features(df):
         + 0.5 * engineered_df["BsmtHalfBath"]
     )
 
-    # --------------------------------------------------
     # Porch Features
-    # --------------------------------------------------
 
     engineered_df["TotalPorchArea"] = (
         engineered_df["OpenPorchSF"]
@@ -50,15 +43,11 @@ def create_interaction_features(df):
         + engineered_df["ScreenPorch"]
     )
 
-    # --------------------------------------------------
     # Room Features
-    # --------------------------------------------------
 
     engineered_df["TotalRooms"] = engineered_df["TotRmsAbvGrd"]
 
-    # --------------------------------------------------
     # Interaction Features
-    # --------------------------------------------------
 
     engineered_df["Qual_LivingArea"] = (
         engineered_df["OverallQual"]
