@@ -8,7 +8,6 @@ from src.models.hyperparameter_tuning import tune_model
 from src.visualization.shap_explainability import generate_shap_plots
 
 from src.utils.category_levels import save_category_levels
-from src.utils.feature_schema import save_feature_schema
 
 
 # ==========================================================
@@ -63,10 +62,6 @@ def main():
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
     os.makedirs(MODELS_DIR, exist_ok=True)
 
-    # ======================================================
-    # Load Data
-    # ======================================================
-
     print("\nLoading Training Data...")
 
     train = pd.read_csv(TRAIN_DATA)
@@ -76,10 +71,6 @@ def main():
 
     X = train.drop(columns=["SalePrice", "Id"])
     y = train["SalePrice"]
-
-    # ======================================================
-    # Identify Features
-    # ======================================================
 
     num_cols = X.select_dtypes(
         include=["int64", "float64"]
@@ -108,22 +99,6 @@ def main():
     print("Category Levels Saved")
 
     # ======================================================
-    # Save Feature Schema
-    # ======================================================
-
-    save_feature_schema(
-        dataframe=X,
-        categorical_columns=cat_cols,
-        numerical_columns=num_cols,
-        output_path=os.path.join(
-            ARTIFACTS_DIR,
-            "feature_schema.json"
-        )
-    )
-
-    print("Feature Schema Saved")
-
-    # ======================================================
     # Create Preprocessor
     # ======================================================
 
@@ -144,7 +119,7 @@ def main():
     print("Preprocessor Saved")
 
     # ======================================================
-    # Train Base Model
+    # Train Model
     # ======================================================
 
     print("\nTraining Base Model...")
@@ -199,7 +174,6 @@ def main():
     print(f"✓ {PREPROCESSOR_PATH}")
     print(f"✓ {MODEL_PATH}")
     print(f"✓ {os.path.join(ARTIFACTS_DIR,'category_levels.json')}")
-    print(f"✓ {os.path.join(ARTIFACTS_DIR,'feature_schema.json')}")
     print(f"✓ {SHAP_VALUES_PATH}")
     print("✓ SHAP Summary Plot")
     print("✓ SHAP Waterfall Plot")

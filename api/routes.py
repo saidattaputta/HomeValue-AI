@@ -39,6 +39,10 @@ def pridict(request: HousePredictionRequest):
 
         df = pd.DataFrame([request.features])
 
+        print("=" * 80)
+        print(df.T)
+        print("=" * 80)
+
         prediction = pipeline.predict(df)
 
         return PredictionResponse(

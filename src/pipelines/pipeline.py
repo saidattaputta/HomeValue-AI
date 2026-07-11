@@ -13,6 +13,8 @@ from src.features.feature_engineering import (
     apply_log_transformations
 )
 
+from src.utils.defaults import DEFAULT_VALUES
+
 
 class PredictionPipeline:
 
@@ -48,10 +50,22 @@ class PredictionPipeline:
             df = df.drop(columns=["Id"])
 
         # -------------------------------------------------
+        # Add Missing Optional Features
+        # -------------------------------------------------
+
+        for column, value in DEFAULT_VALUES.items():
+
+            if column not in df.columns:
+
+                df[column] = value
+
+        # -------------------------------------------------
         # Numerical & Categorical Columns
         # -------------------------------------------------
 
-        num_cols = df.select_dtypes(include=np.number).columns.tolist()
+        num_cols = df.select_dtypes(
+            include=np.number
+        ).columns.tolist()
 
         cat_cols = df.select_dtypes(
             exclude=np.number
