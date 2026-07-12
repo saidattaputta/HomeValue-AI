@@ -28,11 +28,9 @@ def create_prediction_form():
 
     house = {}
 
-    # =====================================================
     # GENERAL INFORMATION
-    # =====================================================
 
-    st.header("🏡 General Information")
+    st.header("General Information")
 
     col1, col2 = st.columns(2)
 
@@ -84,11 +82,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # LOT INFORMATION
-    # =====================================================
 
-    st.header("🌳 Lot Information")
+    st.header("Lot Information")
 
     col1, col2 = st.columns(2)
 
@@ -125,11 +121,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # BUILDING INFORMATION
-    # =====================================================
 
-    st.header("🏠 Building Information")
+    st.header("Building Information")
 
     col1, col2 = st.columns(2)
 
@@ -187,11 +181,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # EXTERIOR
-    # =====================================================
 
-    st.header("🏡 Exterior")
+    st.header("Exterior")
 
     col1, col2 = st.columns(2)
 
@@ -237,11 +229,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # BASEMENT
-    # =====================================================
 
-    st.header("🧱 Basement")
+    st.header("Basement")
 
     col1, col2 = st.columns(2)
 
@@ -314,11 +304,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # HEATING & ELECTRICAL
-    # =====================================================
 
-    st.header("🔥 Heating & Electrical")
+    st.header("Heating & Electrical")
 
     col1, col2 = st.columns(2)
 
@@ -348,11 +336,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # LIVING AREA
-    # =====================================================
 
-    st.header("🛋 Living Area")
+    st.header("Living Area")
 
     col1, col2 = st.columns(2)
 
@@ -392,11 +378,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # ROOMS
-    # =====================================================
 
-    st.header("🚪 Rooms")
+    st.header("Rooms")
 
     col1, col2 = st.columns(2)
 
@@ -451,11 +435,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # FIREPLACE
-    # =====================================================
 
-    st.header("🔥 Fireplace")
+    st.header("Fireplace")
 
     col1, col2 = st.columns(2)
 
@@ -477,11 +459,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # GARAGE
-    # =====================================================
 
-    st.header("🚗 Garage")
+    st.header("Garage")
 
     col1, col2 = st.columns(2)
 
@@ -536,11 +516,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # PORCH & OUTDOOR
-    # =====================================================
 
-    st.header("🌿 Porch & Outdoor")
+    st.header("Porch & Outdoor")
 
     col1, col2 = st.columns(2)
 
@@ -584,11 +562,9 @@ def create_prediction_form():
         ) 
     st.divider()
 
-    # =====================================================
     # FENCE & MISCELLANEOUS
-    # =====================================================
 
-    st.header("🛠 Miscellaneous")
+    st.header("Miscellaneous")
 
     col1, col2 = st.columns(2)
 
@@ -614,11 +590,9 @@ def create_prediction_form():
 
     st.divider()
 
-    # =====================================================
     # SALE INFORMATION
-    # =====================================================
 
-    st.header("💰 Sale Information")
+    st.header("Sale Information")
 
     col1, col2 = st.columns(2)
 
@@ -650,7 +624,7 @@ def create_prediction_form():
 
     st.divider()
 
-    st.success("✅ All required information has been entered.")
+    st.success("All required information has been entered.")
 
     return house
     return house
