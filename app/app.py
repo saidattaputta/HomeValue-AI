@@ -1,18 +1,12 @@
-import streamlit as st
 from pathlib import Path
-
-st.set_page_config(
-    page_title="HomeValue AI",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+import streamlit as st
 
 ASSETS = Path(__file__).parent / "assets"
 
-logo = ASSETS / "logo.png"
+logo_path = ASSETS / "logo.png"
 
-if logo.exists():
-    st.logo(str(logo))
+if logo_path.exists():
+    st.sidebar.image(str(logo_path), use_container_width=True)
 
 st.sidebar.title("HomeValue AI")
 
