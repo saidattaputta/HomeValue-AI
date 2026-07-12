@@ -1,0 +1,8 @@
+Model,MAE,RMSE,R2,Mean RMSE,Std RMSE
+Ridge Regression,0.081,0.118,0.9174,0.1144,0.0071
+Linear Regression,0.0843,0.1289,0.9015,0.116,0.0066
+Gradient Boosting Regression,0.087,0.1255,0.9066,0.1289,0.0087
+Random Forest Regression,0.0969,0.142,0.8804,0.1415,0.0137
+XGBoost Regression,0.0959,0.1375,0.8878,0.1418,0.0122
+Decision Tree Regression,0.1555,0.2069,0.7461,0.2042,0.0135
+Lasso Regression,0.3246,0.4106,-0.0001,0.3971,0.0184

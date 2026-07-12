@@ -1,0 +1,401 @@
+{
+    "MSSubClass": {
+        "type": "numeric",
+        "min": 20.0,
+        "max": 190.0,
+        "default": 50.0
+    },
+    "LotFrontage": {
+        "type": "numeric",
+        "min": 21.0,
+        "max": 313.0,
+        "default": 69.0
+    },
+    "LotArea": {
+        "type": "numeric",
+        "min": 7.170888478512505,
+        "max": 12.279536839074336,
+        "default": 9.156517543005613
+    },
+    "OverallQual": {
+        "type": "numeric",
+        "min": 1.0,
+        "max": 10.0,
+        "default": 6.0
+    },
+    "OverallCond": {
+        "type": "numeric",
+        "min": 1.0,
+        "max": 9.0,
+        "default": 5.0
+    },
+    "YearBuilt": {
+        "type": "numeric",
+        "min": 1872.0,
+        "max": 2010.0,
+        "default": 1972.5
+    },
+    "YearRemodAdd": {
+        "type": "numeric",
+        "min": 1950.0,
+        "max": 2010.0,
+        "default": 1994.0
+    },
+    "MasVnrArea": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 1600.0,
+        "default": 0.0
+    },
+    "BsmtFinSF1": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2188.0,
+        "default": 382.0
+    },
+    "BsmtFinSF2": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 1474.0,
+        "default": 0.0
+    },
+    "BsmtUnfSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2336.0,
+        "default": 477.5
+    },
+    "TotalBsmtSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 3206.0,
+        "default": 991.0
+    },
+    "1stFlrSF": {
+        "type": "numeric",
+        "min": 5.814130531825066,
+        "max": 8.079927770758275,
+        "default": 6.99117688712121
+    },
+    "2ndFlrSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2065.0,
+        "default": 0.0
+    },
+    "LowQualFinSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 572.0,
+        "default": 0.0
+    },
+    "GrLivArea": {
+        "type": "numeric",
+        "min": 5.814130531825066,
+        "max": 8.406708458240965,
+        "default": 7.287901118076775
+    },
+    "BsmtFullBath": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 3.0,
+        "default": 0.0
+    },
+    "BsmtHalfBath": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2.0,
+        "default": 0.0
+    },
+    "FullBath": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 3.0,
+        "default": 2.0
+    },
+    "HalfBath": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2.0,
+        "default": 0.0
+    },
+    "BedroomAbvGr": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 8.0,
+        "default": 3.0
+    },
+    "KitchenAbvGr": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 3.0,
+        "default": 1.0
+    },
+    "TotRmsAbvGrd": {
+        "type": "numeric",
+        "min": 2.0,
+        "max": 14.0,
+        "default": 6.0
+    },
+    "Fireplaces": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 3.0,
+        "default": 1.0
+    },
+    "GarageYrBlt": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 2010.0,
+        "default": 1977.0
+    },
+    "GarageCars": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 4.0,
+        "default": 2.0
+    },
+    "GarageArea": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 1390.0,
+        "default": 479.5
+    },
+    "WoodDeckSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 857.0,
+        "default": 0.0
+    },
+    "OpenPorchSF": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 547.0,
+        "default": 24.5
+    },
+    "EnclosedPorch": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 552.0,
+        "default": 0.0
+    },
+    "3SsnPorch": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 508.0,
+        "default": 0.0
+    },
+    "ScreenPorch": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 480.0,
+        "default": 0.0
+    },
+    "PoolArea": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 738.0,
+        "default": 0.0
+    },
+    "MiscVal": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 15500.0,
+        "default": 0.0
+    },
+    "MoSold": {
+        "type": "numeric",
+        "min": 1.0,
+        "max": 12.0,
+        "default": 6.0
+    },
+    "YrSold": {
+        "type": "numeric",
+        "min": 2006.0,
+        "max": 2010.0,
+        "default": 2008.0
+    },
+    "HouseAge": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 136.0,
+        "default": 35.0
+    },
+    "YearsSinceRemodel": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 60.0,
+        "default": 14.0
+    },
+    "GarageAge": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 107.0,
+        "default": 24.0
+    },
+    "TotalBathrooms": {
+        "type": "numeric",
+        "min": 1.0,
+        "max": 6.0,
+        "default": 2.0
+    },
+    "TotalPorchArea": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 1027.0,
+        "default": 48.0
+    },
+    "TotalRooms": {
+        "type": "numeric",
+        "min": 2.0,
+        "max": 14.0,
+        "default": 6.0
+    },
+    "Qual_LivingArea": {
+        "type": "numeric",
+        "min": 5.814130531825066,
+        "max": 84.06708458240965,
+        "default": 43.68207362674174
+    },
+    "GarageCapacityArea": {
+        "type": "numeric",
+        "min": 0.0,
+        "max": 5424.0,
+        "default": 948.0
+    },
+    "OverallQual_Squared": {
+        "type": "numeric",
+        "min": 1.0,
+        "max": 100.0,
+        "default": 36.0
+    },
+    "MSZoning": {
+        "type": "categorical"
+    },
+    "Street": {
+        "type": "categorical"
+    },
+    "Alley": {
+        "type": "categorical"
+    },
+    "LotShape": {
+        "type": "categorical"
+    },
+    "LandContour": {
+        "type": "categorical"
+    },
+    "Utilities": {
+        "type": "categorical"
+    },
+    "LotConfig": {
+        "type": "categorical"
+    },
+    "LandSlope": {
+        "type": "categorical"
+    },
+    "Neighborhood": {
+        "type": "categorical"
+    },
+    "Condition1": {
+        "type": "categorical"
+    },
+    "Condition2": {
+        "type": "categorical"
+    },
+    "BldgType": {
+        "type": "categorical"
+    },
+    "HouseStyle": {
+        "type": "categorical"
+    },
+    "RoofStyle": {
+        "type": "categorical"
+    },
+    "RoofMatl": {
+        "type": "categorical"
+    },
+    "Exterior1st": {
+        "type": "categorical"
+    },
+    "Exterior2nd": {
+        "type": "categorical"
+    },
+    "MasVnrType": {
+        "type": "categorical"
+    },
+    "ExterQual": {
+        "type": "categorical"
+    },
+    "ExterCond": {
+        "type": "categorical"
+    },
+    "Foundation": {
+        "type": "categorical"
+    },
+    "BsmtQual": {
+        "type": "categorical"
+    },
+    "BsmtCond": {
+        "type": "categorical"
+    },
+    "BsmtExposure": {
+        "type": "categorical"
+    },
+    "BsmtFinType1": {
+        "type": "categorical"
+    },
+    "BsmtFinType2": {
+        "type": "categorical"
+    },
+    "Heating": {
+        "type": "categorical"
+    },
+    "HeatingQC": {
+        "type": "categorical"
+    },
+    "CentralAir": {
+        "type": "categorical"
+    },
+    "Electrical": {
+        "type": "categorical"
+    },
+    "KitchenQual": {
+        "type": "categorical"
+    },
+    "Functional": {
+        "type": "categorical"
+    },
+    "FireplaceQu": {
+        "type": "categorical"
+    },
+    "GarageType": {
+        "type": "categorical"
+    },
+    "GarageFinish": {
+        "type": "categorical"
+    },
+    "GarageQual": {
+        "type": "categorical"
+    },
+    "GarageCond": {
+        "type": "categorical"
+    },
+    "PavedDrive": {
+        "type": "categorical"
+    },
+    "PoolQC": {
+        "type": "categorical"
+    },
+    "Fence": {
+        "type": "categorical"
+    },
+    "MiscFeature": {
+        "type": "categorical"
+    },
+    "SaleType": {
+        "type": "categorical"
+    },
+    "SaleCondition": {
+        "type": "categorical"
+    }
+}

@@ -1,0 +1,300 @@
+{
+    "MSZoning": [
+        "FV",
+        "RH",
+        "RL",
+        "RM",
+        "Rare"
+    ],
+    "Street": [
+        "Pave",
+        "Rare"
+    ],
+    "Alley": [
+        "Grvl",
+        "None",
+        "Pave"
+    ],
+    "LotShape": [
+        "IR1",
+        "IR2",
+        "Rare",
+        "Reg"
+    ],
+    "LandContour": [
+        "Bnk",
+        "HLS",
+        "Low",
+        "Lvl"
+    ],
+    "Utilities": [
+        "AllPub",
+        "Rare"
+    ],
+    "LotConfig": [
+        "Corner",
+        "CulDSac",
+        "FR2",
+        "Inside",
+        "Rare"
+    ],
+    "LandSlope": [
+        "Gtl",
+        "Mod",
+        "Rare"
+    ],
+    "Neighborhood": [
+        "Blmngtn",
+        "BrDale",
+        "BrkSide",
+        "ClearCr",
+        "CollgCr",
+        "Crawfor",
+        "Edwards",
+        "Gilbert",
+        "IDOTRR",
+        "MeadowV",
+        "Mitchel",
+        "NAmes",
+        "NWAmes",
+        "NoRidge",
+        "NridgHt",
+        "OldTown",
+        "Rare",
+        "SWISU",
+        "Sawyer",
+        "SawyerW",
+        "Somerst",
+        "StoneBr",
+        "Timber"
+    ],
+    "Condition1": [
+        "Artery",
+        "Feedr",
+        "Norm",
+        "PosN",
+        "RRAn",
+        "Rare"
+    ],
+    "Condition2": [
+        "Norm",
+        "Rare"
+    ],
+    "BldgType": [
+        "1Fam",
+        "2fmCon",
+        "Duplex",
+        "Twnhs",
+        "TwnhsE"
+    ],
+    "HouseStyle": [
+        "1.5Fin",
+        "1Story",
+        "2Story",
+        "Rare",
+        "SFoyer",
+        "SLvl"
+    ],
+    "RoofStyle": [
+        "Gable",
+        "Hip",
+        "Rare"
+    ],
+    "RoofMatl": [
+        "CompShg",
+        "Rare"
+    ],
+    "Exterior1st": [
+        "AsbShng",
+        "BrkFace",
+        "CemntBd",
+        "HdBoard",
+        "MetalSd",
+        "Plywood",
+        "Rare",
+        "Stucco",
+        "VinylSd",
+        "Wd Sdng",
+        "WdShing"
+    ],
+    "Exterior2nd": [
+        "AsbShng",
+        "BrkFace",
+        "CmentBd",
+        "HdBoard",
+        "MetalSd",
+        "Plywood",
+        "Rare",
+        "Stucco",
+        "VinylSd",
+        "Wd Sdng",
+        "Wd Shng"
+    ],
+    "MasVnrType": [
+        "BrkCmn",
+        "BrkFace",
+        "None",
+        "Stone"
+    ],
+    "ExterQual": [
+        "Ex",
+        "Gd",
+        "Rare",
+        "TA"
+    ],
+    "ExterCond": [
+        "Fa",
+        "Gd",
+        "Rare",
+        "TA"
+    ],
+    "Foundation": [
+        "BrkTil",
+        "CBlock",
+        "PConc",
+        "Rare",
+        "Slab"
+    ],
+    "BsmtQual": [
+        "Ex",
+        "Fa",
+        "Gd",
+        "None",
+        "TA"
+    ],
+    "BsmtCond": [
+        "Fa",
+        "Gd",
+        "None",
+        "Rare",
+        "TA"
+    ],
+    "BsmtExposure": [
+        "Av",
+        "Gd",
+        "Mn",
+        "No",
+        "None"
+    ],
+    "BsmtFinType1": [
+        "ALQ",
+        "BLQ",
+        "GLQ",
+        "LwQ",
+        "None",
+        "Rec",
+        "Unf"
+    ],
+    "BsmtFinType2": [
+        "ALQ",
+        "BLQ",
+        "LwQ",
+        "None",
+        "Rare",
+        "Rec",
+        "Unf"
+    ],
+    "Heating": [
+        "GasA",
+        "GasW",
+        "Rare"
+    ],
+    "HeatingQC": [
+        "Ex",
+        "Fa",
+        "Gd",
+        "Rare",
+        "TA"
+    ],
+    "CentralAir": [
+        "N",
+        "Y"
+    ],
+    "Electrical": [
+        "FuseA",
+        "FuseF",
+        "Rare",
+        "SBrkr"
+    ],
+    "KitchenQual": [
+        "Ex",
+        "Fa",
+        "Gd",
+        "TA"
+    ],
+    "Functional": [
+        "Min1",
+        "Min2",
+        "Mod",
+        "Rare",
+        "Typ"
+    ],
+    "FireplaceQu": [
+        "Ex",
+        "Fa",
+        "Gd",
+        "None",
+        "Po",
+        "TA"
+    ],
+    "GarageType": [
+        "Attchd",
+        "Basment",
+        "BuiltIn",
+        "Detchd",
+        "None",
+        "Rare"
+    ],
+    "GarageFinish": [
+        "Fin",
+        "None",
+        "RFn",
+        "Unf"
+    ],
+    "GarageQual": [
+        "Fa",
+        "None",
+        "Rare",
+        "TA"
+    ],
+    "GarageCond": [
+        "Fa",
+        "None",
+        "Rare",
+        "TA"
+    ],
+    "PavedDrive": [
+        "N",
+        "P",
+        "Y"
+    ],
+    "PoolQC": [
+        "None",
+        "Rare"
+    ],
+    "Fence": [
+        "GdPrv",
+        "GdWo",
+        "MnPrv",
+        "None",
+        "Rare"
+    ],
+    "MiscFeature": [
+        "None",
+        "Rare",
+        "Shed"
+    ],
+    "SaleType": [
+        "COD",
+        "New",
+        "Rare",
+        "WD"
+    ],
+    "SaleCondition": [
+        "Abnorml",
+        "Family",
+        "Normal",
+        "Partial",
+        "Rare"
+    ]
+}
