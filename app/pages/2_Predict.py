@@ -3,10 +3,7 @@ import streamlit as st
 
 from components.forms import create_prediction_form
 
-
-# ==========================================================
 # Configuration
-# ==========================================================
 
 API_URL = "https://homevalue-ai-api.onrender.com/predict"
 

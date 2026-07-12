@@ -2,15 +2,12 @@ import streamlit as st
 
 st.set_page_config(
     page_title="HomeValue AI",
-    page_icon="🏠",
     layout="wide"
 )
 
-# ==========================================================
 # Header
-# ==========================================================
 
-st.title("🏠 HomeValue AI")
+st.title("HomeValue AI")
 
 st.subheader("Enterprise House Price Prediction Platform")
 
@@ -32,37 +29,33 @@ This project demonstrates the complete machine learning lifecycle:
 
 st.divider()
 
-# ==========================================================
 # FEATURES
-# ==========================================================
 
-st.header("🚀 Features")
+st.header("Features")
 
 col1, col2 = st.columns(2)
 
 with col1:
 
-    st.success("🏡 Single House Prediction")
+    st.success("Single House Prediction")
 
-    st.success("📂 Batch Prediction")
+    st.success("Batch Prediction")
 
-    st.success("🧠 SHAP Explainability")
+    st.success("SHAP Explainability")
 
 with col2:
 
-    st.success("⚡ FastAPI Backend")
+    st.success("FastAPI Backend")
 
-    st.success("🎨 Streamlit Dashboard")
+    st.success("Streamlit Dashboard")
 
-    st.success("📊 Model Insights")
+    st.success("Model Insights")
 
 st.divider()
 
-# ==========================================================
 # WORKFLOW
-# ==========================================================
 
-st.header("🔄 Machine Learning Workflow")
+st.header("Machine Learning Workflow")
 
 st.code(
     """
@@ -91,11 +84,9 @@ Streamlit Dashboard
 
 st.divider()
 
-# ==========================================================
 # TECH STACK
-# ==========================================================
 
-st.header("🛠 Tech Stack")
+st.header("Tech Stack")
 
 col1, col2, col3 = st.columns(3)
 
@@ -103,7 +94,7 @@ with col1:
 
     st.markdown(
         """
-### 🤖 Machine Learning
+### Machine Learning
 
 - Python
 - Scikit-learn
@@ -117,7 +108,7 @@ with col2:
 
     st.markdown(
         """
-### ⚡ Backend
+### Backend
 
 - FastAPI
 - Uvicorn
@@ -129,7 +120,7 @@ with col3:
 
     st.markdown(
         """
-### 🎨 Frontend
+### Frontend
 
 - Streamlit
 - Matplotlib
@@ -140,11 +131,9 @@ with col3:
 
 st.divider()
 
-# ==========================================================
 # PROJECT HIGHLIGHTS
-# ==========================================================
 
-st.header("📈 Project Highlights")
+st.header("Project Highlights")
 
 c1, c2, c3, c4 = st.columns(4)
 
@@ -167,5 +156,5 @@ with c4:
 st.divider()
 
 st.info(
-    "👈 Use the navigation menu on the left to explore predictions, batch inference, model explainability, and project information."
+    "Use the navigation menu on the left to explore predictions, batch inference, model explainability, and project information."
 )

@@ -1,9 +1,9 @@
 import streamlit as st
 
-st.title("ℹ️ About HomeValue AI")
+st.title("About HomeValue AI")
 
 st.markdown("""
-## 🏠 Project Overview
+## Project Overview
 
 **HomeValue AI** is an end-to-end Machine Learning application that predicts residential house prices using the Ames Housing Dataset.
 
@@ -11,7 +11,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 🚀 Features
+## Features
 
 - Single House Price Prediction
 - Batch House Price Prediction
@@ -24,7 +24,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 🧠 Machine Learning Pipeline
+## Machine Learning Pipeline
 
 1. Data Cleaning
 2. Missing Value Handling
@@ -38,7 +38,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Programming
 - Python
@@ -66,7 +66,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 📂 Project Structure
+## Project Structure
     HomeValue-AI
     │
     ├── api/
@@ -81,7 +81,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 **Ames Housing Dataset**
 
@@ -91,7 +91,7 @@ The project demonstrates the complete lifecycle of a production-ready ML system�
 
 ---
 
-## 👨‍💻 Developer
+## Developer
 
 **Sai Datta Putta**
 
@@ -103,7 +103,7 @@ Machine Learning | Data Science | AI
 
 ---
 
-## 🎯 Future Improvements
+## Future Improvements
 
 - Docker Deployment
 - Cloud Deployment
@@ -116,5 +116,5 @@ Machine Learning | Data Science | AI
 
 ---
 
-Thank you for exploring **HomeValue AI** 🚀
+Thank you for exploring **HomeValue AI** 
 """)
