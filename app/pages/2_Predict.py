@@ -8,20 +8,16 @@ from components.forms import create_prediction_form
 # Configuration
 # ==========================================================
 
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://homevalue-ai-api.onrender.com/predict"
 
 st.set_page_config(
     page_title="House Price Prediction",
-    page_icon="🏠",
     layout="wide"
 )
 
-
-# ==========================================================
 # Header
-# ==========================================================
 
-st.title("🏠 House Price Prediction")
+st.title("House Price Prediction")
 
 st.markdown(
     """
@@ -33,19 +29,13 @@ Fill in the property details below and click **Predict House Price**.
 
 st.divider()
 
-
-# ==========================================================
 # Prediction Form
-# ==========================================================
 
 house = create_prediction_form()
 
 st.divider()
 
-
-# ==========================================================
 # Prediction Button
-# ==========================================================
 
 col1, col2, col3 = st.columns([1, 2, 1])
 
@@ -57,10 +47,7 @@ with col2:
         type="primary"
     )
 
-
-# ==========================================================
 # Prediction
-# ==========================================================
 
 if predict:
 

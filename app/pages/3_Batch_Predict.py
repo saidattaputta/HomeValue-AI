@@ -2,9 +2,9 @@ import requests
 import pandas as pd
 import streamlit as st
 
-API_URL = "http://127.0.0.1:8000/batch_predict"
+API_URL = "https://homevalue-ai-api.onrender.com/batch_predict"
 
-st.title("📂 Batch House Price Prediction")
+st.title("Batch House Price Prediction")
 
 st.markdown(
     """

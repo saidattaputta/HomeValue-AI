@@ -3,14 +3,10 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
-
-# ==========================================================
 # Configuration
-# ==========================================================
 
 st.set_page_config(
     page_title="Model Insights",
-    page_icon="📊",
     layout="wide"
 )
 
@@ -18,12 +14,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 ARTIFACTS = PROJECT_ROOT / "artifacts"
 
-
-# ==========================================================
 # Header
-# ==========================================================
 
-st.title("📊 Model Insights")
+st.title("Model Insights")
 
 st.markdown(
     """
@@ -34,27 +27,21 @@ performance metrics, SHAP explainability and model coefficients.
 
 st.divider()
 
-
-# ==========================================================
 # Tabs
-# ==========================================================
 
 performance_tab, explainability_tab, coefficients_tab = st.tabs(
     [
-        "📈 Performance",
-        "🧠 Explainability",
-        "📊 Feature Importance"
+        "Performance",
+        "Explainability",
+        "Feature Importance"
     ]
 )
 
-
-# ==========================================================
 # PERFORMANCE TAB
-# ==========================================================
 
 with performance_tab:
 
-    st.subheader("🏆 Model Comparison")
+    st.subheader("Model Comparison")
 
     comparison_file = ARTIFACTS / "comparision.csv"
 
@@ -73,7 +60,7 @@ with performance_tab:
 
     st.divider()
 
-    st.subheader("📌 Project Summary")
+    st.subheader("Project Summary")
 
     c1, c2, c3, c4 = st.columns(4)
 
@@ -105,24 +92,19 @@ with performance_tab:
             "Production Ready"
         )
 
-
-# ==========================================================
 # EXPLAINABILITY TAB
-# ==========================================================
 
 with explainability_tab:
 
     global_tab, local_tab, dependence_tab = st.tabs(
         [
-            "🌍 Global",
-            "🎯 Local",
-            "📉 Dependence"
+            "Global",
+            "Local",
+            "Dependence"
         ]
     )
 
-    # ======================================================
     # GLOBAL
-    # ======================================================
 
     with global_tab:
 
@@ -175,9 +157,7 @@ with explainability_tab:
 
             st.info("Beeswarm plot not found.")
 
-    # ======================================================
     # LOCAL
-    # ======================================================
 
     with local_tab:
 
@@ -213,9 +193,7 @@ with explainability_tab:
 
             st.info("Decision plot not found.")
 
-    # ======================================================
     # DEPENDENCE
-    # ======================================================
 
     with dependence_tab:
 
@@ -254,10 +232,7 @@ with explainability_tab:
 
             st.divider()
 
-
-# ==========================================================
 # FEATURE IMPORTANCE TAB
-# ==========================================================
 
 with coefficients_tab:
 
@@ -296,11 +271,8 @@ with coefficients_tab:
 
         st.info("Coefficient CSV not found.")
 
-
-# ==========================================================
 # Footer
-# ==========================================================
 
 st.divider()
 
-st.success("✅ Model insights loaded successfully.")
+st.success("Model insights loaded successfully.")
