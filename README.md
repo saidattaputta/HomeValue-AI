@@ -1,9 +1,12 @@
-# HomeValue AI
+# HomeValue-AI
 
-## Overview
+## End-to-End Residential Price Prediction with Explainable Machine Learning
 
-HomeValue AI is an end-to-end Machine Learning application for predicting residential house prices using the **Ames Housing Dataset**. The project covers the complete ML lifecycle, including data preprocessing, feature engineering, model training, SHAP-based explainability, FastAPI model serving, and an interactive Streamlit dashboard. It demonstrates a production-ready workflow with support for both single and batch predictions.
+HomeValue-AI is an end-to-end machine learning application for residential property price prediction. The project combines structured data preprocessing, feature engineering, regularized regression, model explainability, REST API-based inference, and an interactive Streamlit application.
 
+The goal was not only to train a predictive model, but to build a complete workflow from raw property data to an accessible prediction system.
+
+---
 ## Features
 
 - **Single House Prediction** – Predict the selling price of an individual house.
@@ -291,9 +294,6 @@ National Institute of Technology Warangal
 
 **Interests**
 
-- Machine Learning
-- Artificial Intelligence
-- Data Science
-- MLOps
+Data Science · Machine Learning · Quantitative Research · Risk Analytics
 
 ---
