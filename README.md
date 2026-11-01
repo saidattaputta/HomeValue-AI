@@ -1,32 +1,33 @@
 # HomeValue-AI
 
-An end-to-end residential property price prediction project using the Ames Housing dataset. The repository combines structured-data preparation, feature engineering, regression model comparison, hyperparameter tuning, SHAP-based explanation, prediction utilities, a FastAPI backend, and a Streamlit interface.
+HomeValue-AI is an end-to-end residential property price prediction project built around the Ames Housing dataset. It includes data preparation, feature engineering, regression model comparison, hyperparameter tuning, SHAP explainability, saved model artifacts, a FastAPI prediction API, and a multi-page Streamlit interface.
 
 ## Objective
 
-Estimate residential sale prices from property attributes and provide an interpretable workflow for individual and batch property predictions.
+Estimate residential sale prices from property attributes and make predictions available for individual properties and batches of property records.
 
-## Key Capabilities
+## Implemented Components
 
-- Data preprocessing and feature engineering
-- Regression model training and comparison
-- Hyperparameter tuning
-- SHAP-based global and local model explanation
-- Single-property and CSV batch prediction utilities
-- FastAPI inference backend
-- Streamlit multi-page interface
-- Separate model, preprocessing, and application modules
+- Data cleaning and feature engineering modules
+- Numeric and categorical preprocessing
+- Regression model training and hyperparameter tuning
+- Saved preprocessing and model artifacts
+- SHAP explainability outputs
+- Prediction pipeline that reuses training-time feature handling
+- FastAPI endpoints for health checks, single predictions, and batch predictions
+- Streamlit pages for prediction, batch prediction, model insights, and project information
 
 ## Dataset
 
 - **Dataset:** Ames Housing
 - **Target:** `SalePrice`
-- **Problem:** Regression
-- **Input features:** property attributes from the source dataset
+- **Task:** Regression
+- **Source data:** `data/raw/train.csv` and `data/raw/test.csv`
+- **Prepared data:** `data/processed/`
 
-## Model Results
+## Reported Model Results
 
-The existing project report lists the tuned Ridge Regression model with:
+The existing project documentation reports the tuned Ridge Regression results below:
 
 | Metric | Reported result |
 |---|---:|
@@ -34,43 +35,79 @@ The existing project report lists the tuned Ridge Regression model with:
 | RMSE | 0.1160 |
 | R² | 0.9202 |
 
-The error metrics appear to be on a transformed or normalized target scale; they should not be interpreted as dollar-denominated errors. Confirm the evaluation split and target transformation before comparing these results with other house-price models.
+The error metrics appear to be calculated on a transformed or normalized target scale; they should not be interpreted as dollar-denominated errors. Validate the split, target transformation, and metric calculation before comparing them with other house-price projects. The committed model-comparison table and model artifacts are available under `artifacts/` and `models/`.
 
-## Workflow
+## Architecture
 
-1. Prepare training and inference features.
-2. Fit preprocessing for numeric and categorical variables.
-3. Train candidate regression models.
-4. Tune the selected estimator.
-5. Generate SHAP explanations.
-6. Load model and preprocessing artifacts for inference.
-7. Serve predictions through the API and Streamlit interface.
+```mermaid
+flowchart TD
+    A[Ames Housing data] --> B[Cleaning and feature engineering]
+    B --> C[Preprocessing]
+    C --> D[Regression training and tuning]
+    D --> E[Saved model and preprocessor]
+    E --> F[PredictionPipeline]
+    F --> G[FastAPI]
+    F --> H[Streamlit pages]
+    D --> I[SHAP explainability artifacts]
+```
+
+## API
+
+The FastAPI application is created in `api/main.py` and includes routes from `api/routes.py`.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | API welcome message |
+| GET | `/health` | Health response |
+| POST | `/predict` | Predict one property |
+| POST | `/batch_predict` | Predict multiple properties |
+
+The request schemas are defined in `api/schemas.py`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` when the API is running.
+
+Run the API from the repository root:
+
+```bash
+uvicorn api.main:app --reload
+```
+
+## Streamlit Application
+
+The implemented Streamlit landing page is `app/1_Home.py`; other pages cover single prediction, batch prediction, model insights, and project information.
+
+```bash
+streamlit run app/1_Home.py
+```
+
+The root-level `app.py` is empty in the current repository snapshot and is not the Streamlit entry point.
 
 ## Repository Structure
 
 ```text
 .
-├── api/                 # Prediction API
-├── app/                 # Streamlit UI components and pages
-├── artifacts/           # Preprocessing / explainability artifacts
-├── data/                # Source and prepared data
-├── images/              # Project visual assets
-├── models/               # Trained estimators
-├── notebooks/           # Analysis notebooks
-├── src/                 # Reusable ML pipeline modules
-├── predict.py           # Prediction utility
-├── train.py             # Training workflow
-├── app.py               # Empty placeholder in the current tree
+├── api/                 # FastAPI application, routes, schemas, utilities
+├── app/                 # Streamlit home page, prediction pages and components
+├── artifacts/           # preprocessing, feature schema, model comparison and SHAP outputs
+├── data/
+│   ├── raw/             # Ames Housing source files and data description
+│   └── processed/       # cleaned and feature-engineered datasets
+├── images/              # application screenshots
+├── models/              # saved estimator
+├── notebooks/           # EDA, cleaning, feature engineering, training and SHAP
+├── src/
+│   ├── data/
+│   ├── features/
+│   ├── models/
+│   ├── pipelines/
+│   ├── preprocessing/
+│   ├── utils/
+│   └── visualization/
+├── predict.py
+├── train.py
+├── app.py               # empty placeholder
 ├── requirements.txt
 ├── runtime.txt
 └── README.md
 ```
-
-The application code is organized under `app/`; the root-level `app.py` file is empty in the current repository snapshot. No source files were changed as part of this documentation update.
-
-## Technology
-
-Python, pandas, NumPy, scikit-learn, SHAP, Matplotlib, FastAPI, Uvicorn, Pydantic, Streamlit, and joblib.
 
 ## Local Setup
 
@@ -82,20 +119,42 @@ source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
-Review the expected input-data paths in `train.py`. When the prepared training data is available at the configured path, run:
+The training script expects prepared data at `data/processed/train_features.csv` and writes model/preprocessing/explainability artifacts. Review those configured paths before running it because the training workflow can overwrite generated artifacts.
 
 ```bash
 python train.py
 ```
 
-The API and UI entry points are located within the project directories. Their module paths and deployment configuration should be checked before launching locally.
+The prediction utility reads the source training CSV and uses the saved pipeline:
 
-## Limitations
+```bash
+python predict.py
+```
 
-- Performance depends on the Ames Housing sample and feature-preparation choices.
-- Metrics on a transformed target scale are not directly interpretable as monetary errors.
-- SHAP describes model behavior, not causal effects of property attributes.
-- Reproducibility requires the same split, preprocessing, data, and dependency versions.
+Both commands require the corresponding datasets and saved artifacts to exist.
+
+## Visuals
+
+The repository includes Streamlit screenshots under `images/`, including the home, prediction, batch prediction, and model-insights views.
+
+![HomeValue AI home screen](images/home.png)
+
+## Technology
+
+Python, pandas, NumPy, scikit-learn, SHAP, Matplotlib, joblib, FastAPI, Uvicorn, Pydantic, and Streamlit.
+
+## Limitations and Validation Notes
+
+- Reported MAE/RMSE values appear to be on a transformed target scale rather than the original currency scale.
+- The repository does not contain a dedicated automated test suite.
+- The root `app.py` is empty; use `app/1_Home.py` to launch the Streamlit interface.
+- The prediction pipeline depends on the committed preprocessor/model/frequency artifacts and the expected input feature schema.
+- The training and prediction scripts were inspected but not executed in this review.
+- SHAP explanations describe model behavior and do not establish causal effects of property attributes.
+
+## Future Improvements
+
+Add automated tests for preprocessing and inference, document metric units and split details, validate batch input schemas, and add model monitoring and reproducibility metadata.
 
 ---
 
