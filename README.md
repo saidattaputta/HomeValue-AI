@@ -1,299 +1,102 @@
 # HomeValue-AI
 
-## End-to-End Residential Price Prediction with Explainable Machine Learning
+An end-to-end residential property price prediction project using the Ames Housing dataset. The repository combines structured-data preparation, feature engineering, regression model comparison, hyperparameter tuning, SHAP-based explanation, prediction utilities, a FastAPI backend, and a Streamlit interface.
 
-HomeValue-AI is an end-to-end machine learning application for residential property price prediction. The project combines structured data preprocessing, feature engineering, regularized regression, model explainability, REST API-based inference, and an interactive Streamlit application.
+## Objective
 
-The goal was not only to train a predictive model, but to build a complete workflow from raw property data to an accessible prediction system.
+Estimate residential sale prices from property attributes and provide an interpretable workflow for individual and batch property predictions.
 
----
-## Features
+## Key Capabilities
 
-- **Single House Prediction** – Predict the selling price of an individual house.
-- **Batch Prediction** – Upload a CSV file to generate predictions for multiple properties.
-- **Machine Learning Pipeline** – Automated preprocessing, feature engineering, and inference.
-- **Model Explainability** – SHAP visualizations for interpreting model predictions.
-- **FastAPI Backend** – RESTful API with single and batch prediction endpoints.
-- **Interactive Dashboard** – Multi-page Streamlit application with an intuitive interface.
-- **Cloud Deployment** – Backend hosted on Render and frontend on Streamlit Community Cloud.
-- **Production-Ready Architecture** – Modular codebase with separated frontend, backend, and ML pipeline.
-
-## System Architecture
-
-```text
-                    User
-                      │
-                      ▼
-           Streamlit Dashboard
-                      │
-          HTTPS REST API Request
-                      │
-                      ▼
-              FastAPI Backend
-                      │
-                      ▼
-          Prediction Pipeline
-                      │
-          Data Preprocessing
-                      │
-                      ▼
-         Ridge Regression Model
-                      │
-                      ▼
-          Predicted House Price
-```
-
-## Machine Learning Workflow
-
-```text
-      Raw Dataset
-            │
-            ▼
-      Exploratory Data Analysis
-            │
-            ▼
-      Data Cleaning
-            │
-            ▼
-      Feature Engineering
-            │
-            ▼
-      Data Preprocessing
-            │
-            ▼
-      Model Training
-            │
-            ▼
-      Hyperparameter Tuning
-            │
-            ▼
-      SHAP Explainability
-            │
-            ▼
-      FastAPI Deployment
-            │
-            ▼
-      Streamlit Dashboard
-```
-
-## Project Structure
-
-```text
-HomeValue-AI
-│
-├── api/                
-├── app/                
-│   ├── components/
-│   ├── pages/
-│   └── assets/
-│
-├── artifacts/          
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── external/
-│
-├── models/             
-├── notebooks/          
-├── src/
-│   ├── data/
-│   ├── features/
-│   ├── preprocessing/
-│   ├── models/
-│   ├── pipelines/
-│   ├── utils/
-│   └── visualization/
-│
-├── train.py            
-├── requirements.txt
-└── README.md
-```
-
-## Tech Stack
-
-| Category | Technologies |
-|----------|--------------|
-| Programming | Python |
-| Data Processing | Pandas, NumPy |
-| Machine Learning | Scikit-learn |
-| Explainability | SHAP |
-| Visualization | Matplotlib |
-| Backend | FastAPI, Uvicorn, Pydantic |
-| Frontend | Streamlit |
-| Version Control | Git, GitHub |
-| Deployment | Render, Streamlit Community Cloud |
+- Data preprocessing and feature engineering
+- Regression model training and comparison
+- Hyperparameter tuning
+- SHAP-based global and local model explanation
+- Single-property and CSV batch prediction utilities
+- FastAPI inference backend
+- Streamlit multi-page interface
+- Separate model, preprocessing, and application modules
 
 ## Dataset
 
-- **Data:** Ames Housing Dataset
-- **Problem Type:** Regression
-- **Target Variable:** `SalePrice`
-- **Features:** 79 housing attributes
+- **Dataset:** Ames Housing
+- **Target:** `SalePrice`
+- **Problem:** Regression
+- **Input features:** property attributes from the source dataset
 
-## Results
+## Model Results
 
-- **Model Used:** Ridge Regression
+The existing project report lists the tuned Ridge Regression model with:
 
+| Metric | Reported result |
+|---|---:|
+| MAE | 0.0784 |
+| RMSE | 0.1160 |
+| R² | 0.9202 |
 
-### Model Performance
+The error metrics appear to be on a transformed or normalized target scale; they should not be interpreted as dollar-denominated errors. Confirm the evaluation split and target transformation before comparing these results with other house-price models.
 
-| Metric | Score |
-|--------|-------:|
-| **Model** | Tuned Ridge Regression |
-| **MAE** | **0.0784** |
-| **RMSE** | **0.1160** |
-| **R² Score** | **0.9202** |
+## Workflow
 
-## Model Comparison
+1. Prepare training and inference features.
+2. Fit preprocessing for numeric and categorical variables.
+3. Train candidate regression models.
+4. Tune the selected estimator.
+5. Generate SHAP explanations.
+6. Load model and preprocessing artifacts for inference.
+7. Serve predictions through the API and Streamlit interface.
 
-Several regression algorithms were evaluated and compared using MAE, RMSE, R² Score, and 5-Fold Cross Validation.
-
-| Model | MAE | RMSE | R² Score | CV Mean RMSE |
-|-------|----:|-----:|---------:|-------------:|
-| **Ridge Regression** | **0.0810** | **0.1180** | **0.9174** | **0.1144** |
-| Linear Regression | 0.0843 | 0.1289 | 0.9015 | 0.1160 |
-| Gradient Boosting | 0.0870 | 0.1255 | 0.9066 | 0.1289 |
-| Random Forest | 0.0969 | 0.1420 | 0.8804 | 0.1415 |
-| XGBoost | 0.0959 | 0.1375 | 0.8878 | 0.1418 |
-| Decision Tree | 0.1555 | 0.2069 | 0.7461 | 0.2042 |
-| Lasso Regression | 0.3246 | 0.4106 | -0.0001 | 0.3971 |
-
-**Ridge Regression achieved the best overall performance**, with the lowest cross-validation RMSE and the highest predictive accuracy after hyperparameter tuning.
-
-## SHAP Explainability
-
-To improve model transparency, SHAP (SHapley Additive Explanations) is integrated into the project.
-
-Available visualizations include:
-
-- SHAP Summary Plot
-- SHAP Beeswarm Plot
-- SHAP Waterfall Plot
-- SHAP Decision Plot
-- SHAP Dependence Plots
-- Ridge Coefficient Analysis
-
-## REST API
-
-| Method | Endpoint | Description |
-|----------|-----------|-------------|
-| GET | `/` | Welcome endpoint |
-| GET | `/health` | Health check |
-| POST | `/predict` | Predict a single house price |
-| POST | `/batch_predict` | Predict prices for multiple houses |
-
-API documentation is available through **Swagger UI** after starting the backend:
+## Repository Structure
 
 ```text
-http://127.0.0.1:8000/docs
+.
+├── api/                 # Prediction API
+├── app/                 # Streamlit UI components and pages
+├── artifacts/           # Preprocessing / explainability artifacts
+├── data/                # Source and prepared data
+├── images/              # Project visual assets
+├── models/               # Trained estimators
+├── notebooks/           # Analysis notebooks
+├── src/                 # Reusable ML pipeline modules
+├── predict.py           # Prediction utility
+├── train.py             # Training workflow
+├── app.py               # Empty placeholder in the current tree
+├── requirements.txt
+├── runtime.txt
+└── README.md
 ```
 
-or via the deployed API:
+The application code is organized under `app/`; the root-level `app.py` file is empty in the current repository snapshot. No source files were changed as part of this documentation update.
 
-```text
-https://homevalue-ai-api.onrender.com/docs
-```
+## Technology
 
-## Deployment
+Python, pandas, NumPy, scikit-learn, SHAP, Matplotlib, FastAPI, Uvicorn, Pydantic, Streamlit, and joblib.
 
-The application is deployed using separate frontend and backend services.
-
-| Service | Platform |
-|----------|----------|
-| Frontend | Streamlit Community Cloud |
-| Backend | Render |
-| API Framework | FastAPI |
-
-### Live Demo
-
-**Frontend:**  
-https://homevalue-ai-app.streamlit.app/
-
-**Backend API:**  
-https://homevalue-ai-api.onrender.com
-
-**Swagger Docs:**  
-https://homevalue-ai-api.onrender.com/docs
-
-
-## Installation
-
-Clone the repository:
+## Local Setup
 
 ```bash
 git clone https://github.com/saidattaputta/HomeValue-AI.git
 cd HomeValue-AI
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv venv
-```
-
-Activate the environment:
-
-**Windows**
-
-```bash
-venv\Scripts\activate
-```
-
-**Linux / macOS**
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
 ```
 
-Run the FastAPI backend:
+Review the expected input-data paths in `train.py`. When the prepared training data is available at the configured path, run:
 
 ```bash
-uvicorn api.main:app --reload
+python train.py
 ```
 
-Run the Streamlit application:
+The API and UI entry points are located within the project directories. Their module paths and deployment configuration should be checked before launching locally.
 
-```bash
-streamlit run app/app.py
-```
+## Limitations
 
-## Screenshots
+- Performance depends on the Ames Housing sample and feature-preparation choices.
+- Metrics on a transformed target scale are not directly interpretable as monetary errors.
+- SHAP describes model behavior, not causal effects of property attributes.
+- Reproducibility requires the same split, preprocessing, data, and dependency versions.
 
-| Page | Preview |
-|------|---------|
-| Home | ![](images/home.png) |
-| Prediction | ![](images/prediction.png) |
-| Batch Prediction | ![](images/batch_prediction.png) |
-| Model Insights | ![](images/model_insights.png) |
+## Author
 
-## Future Improvements
-
-- Docker containerization
-- CI/CD pipeline using GitHub Actions
-- Model versioning
-- Cloud storage integration
-- User authentication
-- Database integration
-- Model monitoring & logging
-- Support for additional regression models
-- Automated model retraining
-- Improved UI/UX
-
-## Developer
-
-**Sai Datta Putta**
-
-Integrated M.Sc. Mathematics  
-National Institute of Technology Warangal
-
-**Interests**
-
-Data Science · Machine Learning · Quantitative Research · Risk Analytics
-
----
+Sai Datta Putta
