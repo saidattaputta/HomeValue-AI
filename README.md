@@ -25,17 +25,31 @@ Estimate residential sale prices from property attributes and make predictions a
 - **Source data:** `data/raw/train.csv` and `data/raw/test.csv`
 - **Prepared data:** `data/processed/`
 
-## Reported Model Results
+## Model Evaluation Results
 
-The existing project documentation reports the tuned Ridge Regression results below:
+The committed model-comparison artifact is [artifacts/comparision.csv](artifacts/comparision.csv). It contains these saved regression results:
 
-| Metric | Reported result |
-|---|---:|
-| MAE | 0.0784 |
-| RMSE | 0.1160 |
-| R² | 0.9202 |
+| Model | MAE | RMSE | R² | Mean CV RMSE | CV RMSE std |
+|---|---:|---:|---:|---:|---:|
+| Ridge Regression | 0.0810 | **0.1180** | **0.9174** | **0.1144** | 0.0071 |
+| Linear Regression | 0.0843 | 0.1289 | 0.9015 | 0.1160 | **0.0066** |
+| Gradient Boosting Regression | 0.0870 | 0.1255 | 0.9066 | 0.1289 | 0.0087 |
+| Random Forest Regression | 0.0969 | 0.1420 | 0.8804 | 0.1415 | 0.0137 |
+| XGBoost Regression | 0.0959 | 0.1375 | 0.8878 | 0.1418 | 0.0122 |
+| Decision Tree Regression | 0.1555 | 0.2069 | 0.7461 | 0.2042 | 0.0135 |
+| Lasso Regression | 0.3246 | 0.4106 | -0.0001 | 0.3971 | 0.0184 |
 
-The error metrics appear to be calculated on a transformed or normalized target scale; they should not be interpreted as dollar-denominated errors. Validate the split, target transformation, and metric calculation before comparing them with other house-price projects. The committed model-comparison table and model artifacts are available under `artifacts/` and `models/`.
+**Saved comparison finding:** Ridge Regression has the lowest listed test RMSE (0.1180) and highest listed R² (0.9174) among the candidate models. Linear Regression has the lowest cross-validation RMSE standard deviation (0.0066), while Ridge has the lowest mean cross-validation RMSE (0.1144).
+
+The values in this committed CSV differ slightly from an earlier headline summary in project notes (MAE 0.0784, RMSE 0.1160, R² 0.9202). The comparison CSV is the directly committed, inspectable result table and is used as the primary reference here. The discrepancy should be reconciled before publishing a single definitive metric set.
+
+The error values appear to be on a transformed target scale: the prediction pipeline applies an inverse exponential transformation after prediction. They should not be interpreted as dollar-denominated errors. Confirm the split and metric calculation in the training notebook before comparing the scores with other property-price projects.
+
+### Saved explainability artifacts
+
+The repository includes Ridge coefficients and SHAP outputs, including global summary, beeswarm, bar, decision, and local waterfall plots under the artifacts directory. The coefficient values belong to the transformed/scaled feature space and are not direct dollar effects.
+
+![Global SHAP summary](artifacts/shap_global_summary.png)
 
 ## Architecture
 
