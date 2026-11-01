@@ -97,6 +97,8 @@ The API and UI entry points are located within the project directories. Their mo
 - SHAP describes model behavior, not causal effects of property attributes.
 - Reproducibility requires the same split, preprocessing, data, and dependency versions.
 
-## Author
+---
 
-Sai Datta Putta
+**Sai Datta Putta**
+
+[LinkedIn](https://www.linkedin.com/in/sai-datta-putta/)
